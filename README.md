@@ -61,6 +61,8 @@ Used for:
 * Organizing photos and videos
 * Accessing the library from other devices
 
+! Setup UPLOAD_LOCATION in .env file
+
 ### Ollama + Open WebUI
 
 Local AI platform.

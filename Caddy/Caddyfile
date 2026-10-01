@@ -1,0 +1,27 @@
+jellyfin.home.arpa {
+    reverse_proxy jellyfin:8096
+}
+
+pihole.home.arpa {
+    reverse_proxy pihole:80
+}
+
+qbt.home.arpa {
+    reverse_proxy 192.168.0.241:8094
+}
+
+grafana.home.arpa {
+    reverse_proxy 192.168.0.241:3000
+}
+
+comfyui.home.arpa {
+    reverse_proxy comfyui:8188
+}
+
+immich.home.arpa {
+    reverse_proxy 192.168.0.241:8097
+}
+
+filebrowser.home.arpa {
+    reverse_proxy filebrowser:80
+}

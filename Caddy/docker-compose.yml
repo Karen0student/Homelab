@@ -1,0 +1,35 @@
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    cpus: ${CPU}
+    mem_limit: ${RAM}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+
+    volumes:
+      - ${CADDYFILE_DIR}:/etc/caddy/Caddyfile:ro
+      - ${DATA_DIR}:/data
+      - ${CONFIG_DIR}:/config
+
+    networks:
+      - proxy
+      - pihole_net
+      - comfyui_net
+      - immich_net
+      - filebrowser_net
+
+networks:
+  proxy:
+    external: true
+  pihole_net:
+    external: true
+  comfyui_net:
+    external: true
+  immich_net:
+    external: true
+  filebrowser_net:
+    external: true

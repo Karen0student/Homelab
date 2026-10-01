@@ -1,0 +1,28 @@
+services:
+  comfyui:
+    image: yanwk/comfyui-boot:cu130-slim
+    container_name: comfyui
+    restart: unless-stopped
+
+    ports:
+      - "${PORT}:8188"
+
+    volumes:
+      - ${DIR}:/root/ComfyUI
+
+    cpus: ${CPU}
+    mem_limit: ${RAM}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+
+    networks:
+      - net
+
+networks:
+  net:

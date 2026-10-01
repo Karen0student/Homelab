@@ -1,0 +1,24 @@
+#Access the Services
+Grafana: http://localhost:3000 (admin/admin)
+Prometheus: http://localhost:9090
+Node Exporter: http://localhost:9100/metrics
+NVIDIA Exporter: http://localhost:9835/metrics
+
+
+
+#Import Dashboards
+For Node Exporter Dashboard:
+Login to Grafana (admin/admin)
+Go to "+" → "Import"
+Enter Dashboard ID: 1860 (Node Exporter Full)
+Click "Load"
+Select "Prometheus" as the data source
+Click "Import"
+
+For NVIDIA GPU Dashboard:
+Login to Grafana
+Go to "+" → "Import"
+Enter Dashboard ID: 14574 (NVIDIA GPU Metrics)
+Click "Load"
+Select "Prometheus" as the data source
+Click "Import"

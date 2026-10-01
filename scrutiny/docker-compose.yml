@@ -1,0 +1,25 @@
+services:
+  scrutiny:
+    restart: unless-stopped
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:nightly-omnibus
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    ports:
+      - "${WEBAPP_PORT}:8080" # webapp
+      - "${INFLUXDB_PORT}:8086" # influxDB admin
+    volumes:
+      - /run/udev:/run/udev:ro
+      - /home/voyager/Visual_Studio/docker-storage/scrutiny/config:/opt/scrutiny/config
+      - /home/voyager/Visual_Studio/docker-storage/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/nvme0"
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/sde"
+
+    cpus: ${CPU}
+    mem_limit: ${RAM}

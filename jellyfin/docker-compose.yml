@@ -1,0 +1,50 @@
+#version: '3'
+---
+services:
+  # Jellyfin - Media Center
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin_HDD
+    networks:
+      - default
+      - proxy
+    #network_mode: host
+   # security_opt:
+    #  - no-new-privileges:true
+    # profiles: ["media", "all"]
+    #user: 1000:1000  #$PUID:$PGID
+    #devices:
+      #- /dev/dri:/dev/dri # for harware transcoding
+      #- /dev/nvidia1:/dev/nvidia0
+      #- /dev/nvidiactl:/dev/nvidiactl
+      #- /dev/nvidia-uvm:/dev/nvidia-uvm
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "${PORT}:8096"
+      # - "8920:8920" # Emby also uses same port if running both
+    environment:
+      UMASK_SET: 022
+      TZ: "Asia/Yerevan"
+      NVIDIA_DRIVER_CAPABILITIES: all
+      CUDA_VISIBLE_DEVICES: "1"
+    cpus: ${CPU}
+    mem_limit: ${RAM}
+    volumes:
+      #- $DOCKERDIR/appdata/jellyfin:/config
+      - ${CONFIG_DIR}:/config
+      - ${CACHE_DIR}:/cache
+      - ${VIDEOS_DIR}:/data/Videos
+      - ${MUSIC_DIR}:/data/Music
+      - /dev/shm:/cache/transcodes # Offload transcoding to RAM if you have enough RAM
+    restart: unless-stopped
+    stop_grace_period: 20s
+
+networks:
+  proxy:
+    external: true
